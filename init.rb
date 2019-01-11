@@ -5,6 +5,7 @@ APP_ROOT = File.dirname(__FILE__)
 # Adding folders to the $: array.
 $:.unshift( File.join(APP_ROOT, 'lib'))
 $:.unshift( File.join(APP_ROOT, 'lib', 'levels'))
+$:.unshift( File.join(APP_ROOT, 'save_games'))
 
 require 'game_runner'
 
