@@ -7,7 +7,7 @@ class LoadAndSave
   end
 
   def self.filepath(player)
-    @@filepath = File.join(APP_ROOT, 'save_games', player + "_save")
+    @@filepath = File.join(APP_ROOT, 'save_games', player + ".save")
   end
 
 
@@ -37,7 +37,7 @@ class LoadAndSave
   end
 
   def self.name_check(name)
-    name = name + "_save"
+    name = name + ".save"
     files = Dir.entries(@@save_folder)
     files.each do |file_name|
       if name == file_name
@@ -55,10 +55,11 @@ class LoadAndSave
              return false
            else
              puts "You did not enter a valid option, please enter 1 or 2"
-           end
-         end
+          end
+        end
       end
     end
+    return false
   end
 
 

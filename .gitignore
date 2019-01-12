@@ -1,0 +1,2 @@
+# Ignore the game save files
+/save_games/*.save

@@ -1,7 +1,7 @@
 class Forest
 
   # Player starts here, waking up in the forest.
-  def self.wakeup(data)
+  def self.start_point(data)
     puts "You see the sun creeping through your closed eyes."
     gets
     puts "As you begin to open them, you realised you are no longer in your warm bed."

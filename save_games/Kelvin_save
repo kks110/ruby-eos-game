@@ -1,6 +1,0 @@
-{:step=>"left_or_right", :level=>"Forest", :character=>"Kelvin"}
-{:step=>"left", :level=>"Forest", :character=>"Kelvin"}
-{:step=>"next_level", :level=>"Town", :character=>"Kelvin"}
-{:step=>"left_or_right", :level=>"Forest", :character=>"Kelvin"}
-{:step=>"left", :level=>"Forest", :character=>"Kelvin"}
-{:step=>"next_level", :level=>"Town", :character=>"Kelvin"}
