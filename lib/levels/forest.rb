@@ -1,7 +1,7 @@
 class Forest
 
   # Player starts here, waking up in the forest.
-  def self.wakeup(player_name)
+  def self.wakeup(data)
     puts "You see the sun creeping through your closed eyes."
     gets
     puts "As you begin to open them, you realised you are no longer in your warm bed."
@@ -10,13 +10,13 @@ class Forest
     gets
     puts "You seem to be fully dressed."
     gets
-    puts "'Come on #{player_name}, lets get up!' You think to yourself."
+    puts "'Come on #{data[2]}, lets get up!' You think to yourself."
     gets
     return "left_or_right", "Forest"
   end
 
   # The first decision, left or right.
-  def self.left_or_right(player_name)
+  def self.left_or_right(data)
     puts "You look around and see a path near by."
     gets
     puts "You cannot see any sign posts and you dont recognise the area"
@@ -38,7 +38,7 @@ class Forest
   end
 
   # If they picked left, they are out, and are heading to the town.
-  def self.left(player_name)
+  def self.left(data)
     puts "You walk fruther and the trees begin to thin out."
     gets
     puts "You start to see buildings through the trees."
@@ -50,7 +50,7 @@ class Forest
   end
 
   # If not, their journey continues.
-  def self.right(player_name)
+  def self.right(data)
     puts "You start your journey along this road to see where it goes."
     gets
     puts "As you continue, the forest seems to get thicker arround you."
@@ -74,10 +74,10 @@ class Forest
     end
   end
 
-  def self.go_past(player_name)
+  def self.go_past(data)
   end
 
-  def self.knock(player_name)
+  def self.knock(data)
   end
 
 

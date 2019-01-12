@@ -9,6 +9,10 @@ class Character
   def initialize
     puts "Welcome, what is your name?: "
     @name = gets.chomp.downcase.capitalize
+    puts "Welcome #{@name}, lets begin your adventure!"
+  end
+
+  def name_check
     # if LoadAndSave.name_check(@name)
     #   puts "Name already in save file, would you like to load that file, delete that entry or try a new name?"
     #   puts "1 - Load file"
@@ -25,7 +29,6 @@ class Character
     #     @name = gets.chomp.downcase.capitalize
     #   end
     # end
-    puts "Welcome #{@name}, lets begin your adventure!"
   end
 
 end

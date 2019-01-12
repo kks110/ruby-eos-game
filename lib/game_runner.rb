@@ -4,37 +4,49 @@ require 'load_and_save'
 
 class GameRunner
 
-  attr_accessor :next_step_and_level
+  attr_accessor :next_step_and_level, :data
 
   def self.run!
-     puts "There was an error reading the save file "unless LoadAndSave.file_check
-     # puts "Would you like to load a game, or start a new one?"
-     # loop do
-     #   puts "1 - New Game"
-     #   puts "2 - Load Game"
-     #   answer = gets.chomp
-     #   if answer == "1"
-     #     break
-     #   elsif answer == "2"
-     #     LoadAndSave.load
-     #   else
-     #     puts "That was not a valid option, please enter 1 or 2': "
-     #   end
-     # end
+    load_file = new_game
+    puts load_file
+
     player = Character.new
-    @next_step_and_level = ["wakeup", "Forest"]
-    level_start(player, @next_step_and_level)
+    @@data = {step: "wakeup", level: "Forest", character: player.name}
+    LoadAndSave.filepath(@@data[:character])
+    puts "There was an error reading the save file "unless LoadAndSave.file_check
+    level_start
   end
 
-
-
-  def self.level_start(player, step_and_level)
-    level = Object.const_get(step_and_level[1])
-    while step_and_level[0] != "next_level" do
-      step_and_level = level.send(step_and_level[0], player.name)
+  def self.new_game
+    if !LoadAndSave.save_files?
+      return false
+    else
+      puts "Would you like to load a game, or start a new one?"
+      loop do
+        puts "1 - New Game"
+        puts "2 - Load Game"
+        answer = gets.chomp
+        if answer == "1"
+          return false
+        elsif answer == "2"
+          load_name = LoadAndSave.file_to_load
+          return load_name
+        else
+          puts "That was not a valid option, please enter 1 or 2': "
+        end
+      end
     end
-    return step_and_level
   end
+
+
+  def self.level_start
+    level = Object.const_get(@@data[:level])
+    while @@data[:step] != "next_level" do
+      @@data[:step], @@data[:level] = level.send(@@data[:step], @@data)
+      LoadAndSave.save(@@data)
+    end
+  end
+
 
 
 
