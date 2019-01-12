@@ -7,17 +7,28 @@ class GameRunner
   attr_accessor :next_step_and_level, :data
 
   def self.run!
-    load_file = new_game
-    puts load_file
+    load_file = load_save?
+    if load_file
+      @@data = LoadAndSave.load(load_file)
+      level_start
+    else
+      new_game
+    end
+  end
 
+  def self.new_game
     player = Character.new
+    file = LoadAndSave.filepath(player.name)
+    if LoadAndSave.name_check(player.name)
+      @@data = LoadAndSave.load(file)
+      level_start
+    end
     @@data = {step: "wakeup", level: "Forest", character: player.name}
-    LoadAndSave.filepath(@@data[:character])
     puts "There was an error reading the save file "unless LoadAndSave.file_check
     level_start
   end
 
-  def self.new_game
+  def self.load_save?
     if !LoadAndSave.save_files?
       return false
     else

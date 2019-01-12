@@ -10,6 +10,8 @@ class LoadAndSave
     @@filepath = File.join(APP_ROOT, 'save_games', player + "_save")
   end
 
+
+
   def self.file_check
     if file_usable?
       return true
@@ -35,7 +37,31 @@ class LoadAndSave
   end
 
   def self.name_check(name)
+    name = name + "_save"
+    files = Dir.entries(@@save_folder)
+    files.each do |file_name|
+      if name == file_name
+        puts "File already exists with that name"
+        puts "Would you like to load that file or overwrite it"
+        puts "1 - Use"
+        puts "2 - Overwrite"
+        loop do
+          answer = gets.chomp
+          if answer == "1"
+             return true
+           elsif answer == "2"
+             file = File.open(@@filepath, 'w')
+             file.close
+             return false
+           else
+             puts "You did not enter a valid option, please enter 1 or 2"
+           end
+         end
+      end
+    end
   end
+
+
 
   def self.file_to_load
     puts "Which save would you like to load?"
@@ -57,7 +83,7 @@ class LoadAndSave
       end
       answer = gets.chomp.to_i
       if answer > 0 && answer <= counter_2
-        puts "Loading file"
+        @@filepath = File.join(APP_ROOT, 'save_games', file_hash[answer])
         return file_hash[answer]
       else
         puts "That is not a valid option. Please enter a number between 1 and #{counter_2-1}"
@@ -65,8 +91,14 @@ class LoadAndSave
     end
   end
 
-  def self.delete(name)
+  def self.load(file)
+    lines = IO.readlines(@@filepath)
+    save_data = lines.last.chomp
+    save_data = eval(save_data)
+    return save_data
   end
+
+
 
   def self.save(data)
     File.open(@@filepath, 'a') do |line|
