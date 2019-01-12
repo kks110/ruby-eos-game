@@ -21,7 +21,7 @@ class Forest
     gets
     puts "You cannot see any sign posts and you dont recognise the area"
     gets
-    puts "You can either go left or right. Which way do you want to go?: "
+    puts "You can either go left or right. Which way do you go?: "
     loop do
       puts "1 - Left"
       puts "2 - Right"
@@ -49,21 +49,20 @@ class Forest
     return "next_level", "Town"
   end
 
-  # If not, their journey continues.
+  # If not, their journey continues. Deeper in to the forrest they go.
   def self.right(data)
     puts "You start your journey along this road to see where it goes."
     gets
     puts "As you continue, the forest seems to get thicker arround you."
     gets
-    puts "Off to the side of the path, you see smoke rishing. As you get closer you realise its a house."
+    puts "Off to the side of the path, you see smoke rising. As you get closer you realise it's a house."
     gets
     puts "You come closer to the front of the house."
     gets
     loop do
       puts "1 - Walk past"
-      puts "2 - Knock on the door"
+      puts "2 - Walk up and knock on the door"
       l_or_r = gets.chomp
-      # It will return what they pick to send them to the next step.
       if l_or_r == "1"
         return "go_past", "Forest"
       elsif l_or_r == "2"
@@ -73,6 +72,7 @@ class Forest
       end
     end
   end
+
 
   def self.go_past(data)
   end

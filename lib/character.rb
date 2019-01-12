@@ -1,5 +1,7 @@
 require 'load_and_save'
 
+# Basic set up of player to get their name.
+
 class Character
 
   @name = "Name"
