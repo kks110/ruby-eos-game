@@ -133,12 +133,15 @@ class Gui
         return "stage_complete"
       else
         # If yes, do a check to see if its valid.
-        stage_complete_check(answer, options)
+        # If it is, pass it back.
+        if stage_complete_check(answer, options)
+          return stage_complete_check(answer, options)
+        end
       end
     end
   end
 
-  # Does the check to see if the answer is valid. If not, it will add a line asking for the user to give a correct response.
+  # Does the check to see if the answer is valid. If not, it will add a line asking for the user to give a correct response and return false.
   # If it is valid, will return to the level the answer that the player gave.
   def self.stage_complete_check(answer, options)
     options.each_with_index do |choice, index|
@@ -147,7 +150,7 @@ class Gui
       end
     end
     @@options_display << @@lines + " " * 37 + "Please enter one of the option numbers" + " " * 37 + @@lines
-
+    return false
   end
 
 end
