@@ -3,15 +3,14 @@ $:.unshift( File.join(APP_ROOT, 'lib'))
 require 'gui_loader'
 
 def self.left_or_right
-  Gui.messages_gui_writer("You look around and see a path near by.")
-  gets
-  Gui.messages_gui_writer("You cannot see any sign posts")
-  gets
-  Gui.messages_gui_writer("and you don't recognise the area")
-  gets
-  Gui.messages_gui_writer("You can either go left or right.")
-  gets
-  Gui.messages_gui_writer("Which way do you go?: ")
+  message = []
+  message[0] = "You look around and see a path near by."
+  message[1] = "You cannot see any sign posts"
+  message[2] = "and you don't recognise the area"
+  message[3] = "You can either go left or right."
+  message[4] = "Which way do you go?: "
+  choice = Gui.gui_message_intake(message)
+  puts choice, "Forest"
 end
 
 left_or_right
