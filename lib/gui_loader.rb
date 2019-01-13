@@ -80,7 +80,9 @@ class Gui
       120.times do |x|
         print "-"
       end
-      puts
+      60.times do |x|
+        print "<>"
+      end
       120.times do |x|
         print "-"
       end
@@ -120,7 +122,9 @@ class Gui
       120.times do |x|
         print "-"
       end
-      puts
+      60.times do |x|
+        print "<>"
+      end
       120.times do |x|
         print "-"
       end
