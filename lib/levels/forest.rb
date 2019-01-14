@@ -4,75 +4,60 @@ class Forest
 
   # Player starts here, waking up in the forest.
   def self.start_point(data)
-    puts "You see the sun creeping through your closed eyes."
-    gets
-    puts "As you begin to open them, you realised you are no longer in your warm bed."
-    gets
-    puts "As you look around you see trees. How did you get here?"
-    gets
-    puts "You seem to be fully dressed."
-    gets
-    puts "'Come on #{data[2]}, lets get up!' You think to yourself."
-    gets
+    puts data
+    message = []
+    message[0] = "You see the sun creeping through your closed eyes."
+    message[1] = "As you begin to open them, you realised you are no longer in your warm bed."
+    message[2] = "As you look around you see trees. How did you get here?"
+    message[3] = "You seem to be fully dressed."
+    message[4] = "'Come on #{data[:character]}, lets get up!' You think to yourself."
+    Gui.gui_message_intake(message)
     return "left_or_right", "Forest"
   end
 
   # The first decision, left or right.
   def self.left_or_right(data)
-    puts "You look around and see a path near by."
-    gets
-    puts "You cannot see any sign posts and you dont recognise the area"
-    gets
-    puts "You can either go left or right. Which way do you go?: "
-    loop do
-      puts "1 - Left"
-      puts "2 - Right"
-      l_or_r = gets.chomp
-      # It will return what they pick to send them to the next step.
-      if l_or_r == "1"
-        return "left", "Forest"
-      elsif l_or_r == "2"
-        return "right", "Forest"
-      else
-        puts "That was not a valid option, please enter 1 or 2': "
-      end
-    end
+    message = []
+    message[0] = "You look around and see a path near by."
+    message[1] = "You cannot see any sign posts and you dont recognise the area"
+    message[2] = "You can either go left or right."
+    message[3] = "Which way do you go?: "
+    options = []
+    options[0] = "Left"
+    options[1] = "Right"
+    choice = Gui.gui_message_intake(message, options)
+    return choice.downcase, "Forest"
   end
 
   # If they picked left, they are out, and are heading to the town.
   def self.left(data)
-    puts "You walk fruther and the trees begin to thin out."
-    gets
-    puts "You start to see buildings through the trees."
-    gets
-    puts "You emerge from the forest and before you is a town."
-    puts "A signpost nearby points in two directions. One to the forst and says 'Rackstone Forest'"
-    puts "The other to the town and says 'High Church'. You don't recognise either of these names"
+    message = []
+    message[0] = "You walk fruther and the trees begin to thin out."
+    message[1] = "You start to see buildings through the trees."
+    message[2] = "You emerge from the forest and before you is a town."
+    message[3] = "A signpost nearby points in two directions. One to the forst and says 'Rackstone Forest'"
+    message[4] = "The other to the town and says 'High Church'. You don't recognise either of these names"
+    Gui.gui_message_intake(message)
     return "next_level", "Town"
   end
 
   # If not, their journey continues. Deeper in to the forrest they go.
   def self.right(data)
-    puts "You start your journey along this road to see where it goes."
-    gets
-    puts "As you continue, the forest seems to get thicker arround you."
-    gets
-    puts "Off to the side of the path, you see smoke rising. As you get closer you realise it's a house."
-    gets
-    puts "You come closer to the front of the house."
-    gets
-    loop do
-      puts "1 - Walk past"
-      puts "2 - Walk up and knock on the door"
-      l_or_r = gets.chomp
-      if l_or_r == "1"
-        return "go_past", "Forest"
-      elsif l_or_r == "2"
-        return "knock", "Forest"
-      else
-        puts "That was not a valid option, please enter 1 or 2': "
-      end
+    message = []
+    message[0] = "You start your journey along this road to see where it goes."
+    message[1] = "As you continue, the forest seems to get thicker arround you."
+    message[2] = "Off to the side of the path, you see smoke rising. As you get closer you realise it's a house."
+    message[3] = "You come closer to the front of the house."
+    options = []
+    options[0] = "Walk past"
+    options[1] = "Walk up and knock on the door"
+    choice = Gui.gui_message_intake(message, options)
+    if choice == "Walk past"
+      choice = "go_past"
+    else
+      choice = "knock"
     end
+    return choice, "Forest"
   end
 
 

@@ -58,11 +58,14 @@ class GameStartup
       loop do
         options[0] = "New Game"
         options[1] = "Load Game"
+        options[2] = "Delete save"
         answer = Gui.gui_message_intake(message, options)
         if answer == "1" || answer == "New game"
           return false
-        else answer == "2" || answer == "Load game"
+        elsif answer == "2" || answer == "Load game"
           return LoadAndSave.file_to_load
+        else
+          LoadAndSave.delete
         end
       end
     end
