@@ -47,6 +47,7 @@ class GameStartup
   end
 
   # If it find a save file, it will ask if you want to load a save file
+  # Also had the option to delete the save files. If you delete all of them it will start a new game.
   # or start a new game.
   def self.load_save?
     while LoadAndSave.save_files?
