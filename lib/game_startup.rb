@@ -25,7 +25,13 @@ class GameStartup
   # The new game will ask the player for the character, and will
   # do some checkes to see if there is already a player with that name.
   # Will also create the save file.
+  # I have put in a 6 file max limit, so will check and see if there are 6 save files as well.
   def self.new_game
+    if LoadAndSave.save_file_amount?
+      file = LoadAndSave.file_to_load
+      @@data = LoadAndSave.load(file)
+      return @@data
+    end
     player = Character.new
     file = LoadAndSave.filepath(player.name)
     if LoadAndSave.name_check(player.name)
@@ -36,7 +42,7 @@ class GameStartup
     # If not, it will set up the first level data, create
     # and check the save data, and return it to the game runner.
     @@data = {step: "start_point", level: "Forest", character: player.name}
-    puts "There was an error reading the save file "unless LoadAndSave.file_check
+    puts "There was an error reading the save file" unless LoadAndSave.file_check
     return @@data
   end
 
@@ -46,17 +52,17 @@ class GameStartup
     if !LoadAndSave.save_files?
       return false
     else
-      puts "Would you like to load a game, or start a new one?"
+      message = []
+      options = []
+      message[0] = "Would you like to load a game, or start a new one?"
       loop do
-        puts "1 - New Game"
-        puts "2 - Load Game"
-        answer = gets.chomp
-        if answer == "1"
+        options[0] = "New Game"
+        options[1] = "Load Game"
+        answer = Gui.gui_message_intake(message, options)
+        if answer == "1" || answer == "New game"
           return false
-        elsif answer == "2"
+        else answer == "2" || answer == "Load game"
           return LoadAndSave.file_to_load
-        else
-          puts "That was not a valid option, please enter 1 or 2': "
         end
       end
     end

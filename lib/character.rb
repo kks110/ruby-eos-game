@@ -9,9 +9,10 @@ class Character
   attr_accessor :name
 
   def initialize
-    puts "Welcome, what is your name?: "
-    @name = gets.chomp.downcase.capitalize
-    puts "Welcome #{@name}, lets begin your adventure!"
+    message = []
+    message[0] = "Welcome, what is your name?: "
+    name = Gui.gui_message_intake(message)
+    @name = name.downcase.capitalize
   end
 
 

@@ -6,7 +6,7 @@ class ChoiceCheck
   def self.answer_check(answer, options)
     options.each_with_index do |choice, index|
       if answer == choice || answer == (index + 1).to_s
-        return choice.downcase
+        return choice.downcase.capitalize
       end
     end
     return false

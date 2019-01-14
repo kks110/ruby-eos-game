@@ -133,7 +133,7 @@ class Gui
       answer = gets.chomp.downcase.capitalize
       # Checks if it needs an answer. If no return compelte.
       if options == []
-        return "stage_complete"
+        return answer
       else
         # If yes, do a check to see if its valid.
         # If it is, pass it back.

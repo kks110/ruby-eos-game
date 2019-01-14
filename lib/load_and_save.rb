@@ -15,6 +15,28 @@ class LoadAndSave
     return true unless Dir.empty?(@@save_folder)
   end
 
+  # Counts the amount of save files, then asks to load or delete one if over 6.
+  def self.save_file_amount?
+    amount = Dir.entries(@@save_folder)
+    amount = amount.length - 2
+    if amount >= 6
+      message = []
+      options = []
+      message[0] = "You have reached your maximum amount of save files."
+      message[1] = "If you want to start a new game, you will have to overwrite one"
+      message[2] = "Would you like to delete one or load one?"
+      options[0] = "Overwrite"
+      options[1] = "Load"
+      answer = Gui.gui_message_intake(message, options)
+      if answer == "1" || answer == "Overwrite"
+        self.delete
+        return false
+      else
+        return true
+      end
+    end
+  end
+
   # Sets the save files based on aplyer name.
   def self.filepath(player)
     @@filepath = File.join(APP_ROOT, 'save_games', player + ".save")
@@ -55,20 +77,20 @@ class LoadAndSave
     files = Dir.entries(@@save_folder)
     files.each do |file_name|
       if name == file_name
-        puts "File already exists with that name"
-        puts "Would you like to load that file or overwrite it"
-        puts "1 - Use"
-        puts "2 - Overwrite"
+        message = []
+        options = []
+        message[0] = "File already exists with that name"
+        message[1] = "Would you like to load that file or overwrite it"
+        options[0] = "Use"
+        options[1] = "Overwrite"
         loop do
-          answer = gets.chomp
-          if answer == "1"
+          answer = Gui.gui_message_intake(message, options)
+          if answer == "1" || answer == "Use"
              return true
-           elsif answer == "2"
+           else answer == "2" || answer == "Overwrite"
              file = File.open(@@filepath, 'w')
              file.close
              return false
-           else
-             puts "You did not enter a valid option, please enter 1 or 2"
           end
         end
       end
@@ -76,14 +98,9 @@ class LoadAndSave
     return false
   end
 
-
-  # This displays the list of files that can be loaded from.
-  # The user then picks which one to load.
-  # Dir.entries also returns the . and .. so had to work around that a bit.
-  # Tried to do an if to skip those, but couldn't get it working.
-  # Instead it uses 2 counters to name them -1 and 0, then only displays from 1 up.
-  def self.file_to_load
-    puts "Which save would you like to load?"
+  # Gets a list of save files names and returns as an array.
+  def self.list_of_filenames
+    options = []
     files = Dir.entries(@@save_folder)
     files_count = files.length
     counter_1 = 0
@@ -97,20 +114,37 @@ class LoadAndSave
     loop do
       file_hash.each do |k, v|
         if k >= 1
-          puts "#{k}: #{v}"
+          options << "#{v}"
         end
       end
-      answer = gets.chomp.to_i
-      # Makes sure their response is within the range.
-      if answer > 0 && answer <= counter_2
-        # Sets the filepath to the one they want
-        @@filepath = File.join(APP_ROOT, 'save_games', file_hash[answer])
-        # And returns that file name.
-        return file_hash[answer]
-      else
-        puts "That is not a valid option. Please enter a number between 1 and #{counter_2-1}"
-      end
+      return options
     end
+  end
+
+  # Asks which file to be deleted then deletes it.
+  def self.delete
+    message = []
+    options = []
+    options = list_of_filenames
+    message[0] =  "Which save would you like to delete?"
+    answer = Gui.gui_message_intake(message, options)
+    fillepath = File.join(APP_ROOT, 'save_games', answer)
+    File.delete(fillepath)
+  end
+
+  # This displays the list of files that can be loaded from.
+  # The user then picks which one to load.
+  # Dir.entries also returns the . and .. so had to work around that a bit.
+  # Tried to do an if to skip those, but couldn't get it working.
+  # Instead it uses 2 counters to name them -1 and 0, then only displays from 1 up.
+  def self.file_to_load
+    message = []
+    options = []
+    options = list_of_filenames
+    message[0] =  "Which save would you like to load?"
+    answer = Gui.gui_message_intake(message, options)
+    @@filepath = File.join(APP_ROOT, 'save_games', answer)
+    return answer
   end
 
   # Loads the file selected, and takes the last line from it.
