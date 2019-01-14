@@ -41,11 +41,11 @@ class Gui
   def self.gui_line_maker(message, message_length, m_or_o, index)
     message_spaces = 112 - message_length
     message_spaces_halfs = message_spaces / 2
-    options_spaces = 68 - message_length
+    options_spaces = 63 - message_length
     if m_or_o == "message"
       @@message_display << @@lines + " " * message_spaces_halfs + message + " " * message_spaces_halfs + @@lines
     else
-      @@options_display << @@lines + " " * 40 + (index + 1).to_s + " - " + message + " " * options_spaces + @@lines
+      @@options_display << @@lines + " " * 45 + (index + 1).to_s + " - " + message + " " * options_spaces + @@lines
     end
   end
 

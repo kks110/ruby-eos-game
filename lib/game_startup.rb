@@ -49,24 +49,20 @@ class GameStartup
   # If it find a save file, it will ask if you want to load a save file
   # or start a new game.
   def self.load_save?
-    if !LoadAndSave.save_files?
-      return false
-    else
-      message = []
-      options = []
-      message[0] = "Would you like to load a game, or start a new one?"
-      loop do
-        options[0] = "New Game"
-        options[1] = "Load Game"
-        options[2] = "Delete save"
-        answer = Gui.gui_message_intake(message, options)
-        if answer == "1" || answer == "New game"
-          return false
-        elsif answer == "2" || answer == "Load game"
-          return LoadAndSave.file_to_load
-        else
-          LoadAndSave.delete
-        end
+    while LoadAndSave.save_files?
+    message = []
+    options = []
+    message[0] = "Would you like to load a game, or start a new one?"
+    options[0] = "New Game"
+    options[1] = "Load Game"
+    options[2] = "Delete save"
+    answer = Gui.gui_message_intake(message, options)
+      if answer == "1" || answer == "New game"
+        return false
+      elsif answer == "2" || answer == "Load game"
+        return LoadAndSave.file_to_load
+      else
+        LoadAndSave.delete
       end
     end
   end
