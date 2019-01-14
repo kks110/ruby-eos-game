@@ -1,3 +1,4 @@
 # Ignore the game save files
 /save_games/*.save
 test_file.rb
+to_do.txt
