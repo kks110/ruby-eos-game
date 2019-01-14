@@ -3,6 +3,8 @@
 # It stores the save folders / filepaths.
 # Any checks of the file / folder and any writing / reading from the save files is done here.
 
+require 'gui_loader'
+
 class LoadAndSave
 
   # Sets the save folder path.

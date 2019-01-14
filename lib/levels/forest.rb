@@ -1,3 +1,5 @@
+require 'gui_loader'
+
 class Forest
 
   # Player starts here, waking up in the forest.

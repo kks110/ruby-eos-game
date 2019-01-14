@@ -1,5 +1,6 @@
 require 'character'
 require 'load_and_save'
+require 'gui_loader'
 
 # This file takes care of setting up the game when it first runs.
 # It will check if you want to start a new game, or load one.

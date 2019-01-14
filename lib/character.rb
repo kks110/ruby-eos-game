@@ -1,5 +1,5 @@
 require 'load_and_save'
-
+require 'gui_loader'
 # Basic set up of player to get their name.
 
 class Character
