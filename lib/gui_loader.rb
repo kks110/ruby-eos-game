@@ -1,5 +1,6 @@
-
 # This draws the choices to the display.
+
+require 'choice_checker'
 
 class Gui
 
@@ -65,7 +66,6 @@ class Gui
     message_amount = (message_stage - 1) / 2
     options_stage = @@options_display.length
     options_amount = (options_stage - 1) / 2
-    puts options_amount
     return message_amount, options_amount
   end
 
@@ -137,23 +137,15 @@ class Gui
       else
         # If yes, do a check to see if its valid.
         # If it is, pass it back.
-        if stage_complete_check(answer, options)
-          return stage_complete_check(answer, options)
+        if ChoiceCheck.answer_check(answer, options)
+          return ChoiceCheck.answer_check(answer, options)
+        else
+          @@options_display << @@lines + " " * 37 + "Please enter one of the option numbers" + " " * 37 + @@lines
         end
       end
     end
   end
 
-  # Does the check to see if the answer is valid. If not, it will add a line asking for the user to give a correct response and return false.
-  # If it is valid, will return to the level the answer that the player gave.
-  def self.stage_complete_check(answer, options)
-    options.each_with_index do |choice, index|
-      if answer == choice || answer == (index + 1).to_s
-        return choice.downcase
-      end
-    end
-    @@options_display << @@lines + " " * 37 + "Please enter one of the option numbers" + " " * 37 + @@lines
-    return false
-  end
+
 
 end
