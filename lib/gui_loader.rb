@@ -15,8 +15,6 @@ class Gui
     # This then passes them to the line length check to make sure its an even amount of characters
     gui_line_length_check(message_array, "message")
     gui_line_length_check(options_array, "options")
-    # This does a message check to make sure its an even amount of lines.
-    gui_message_line_tidy
     # This then goes to the writer to dispaly the information. Passing in the options as well.
     return gui_writer(options_array)
   end
@@ -55,11 +53,9 @@ class Gui
   def self.gui_message_line_tidy
     if @@message_display.length % 2 == 0
       @@message_display << @@default_line
-      puts @@message_display.length
     end
     if @@options_display.length % 2 == 0
       @@options_display << @@default_line
-      puts @@options_display.length
     end
   end
 
@@ -69,13 +65,16 @@ class Gui
     message_amount = (message_stage - 1) / 2
     options_stage = @@options_display.length
     options_amount = (options_stage - 1) / 2
+    puts options_amount
     return message_amount, options_amount
   end
 
   def self.gui_writer(options=[])
-    # Gets the line calcualtions to apply them.
-    message_amount, options_amount = lines_calcualtions
     loop do
+      # This does a message check to make sure its an odd amount of lines.
+      gui_message_line_tidy
+      # Gets the line calcualtions to apply them.
+      message_amount, options_amount = lines_calcualtions
       # Draws the lines at the top of the screen.
       120.times do |x|
         print "-"
@@ -88,7 +87,7 @@ class Gui
       end
 
       # Draws the top message display.
-      (7 - message_amount).times do |x|
+      (6 - message_amount).times do |x|
         print @@default_line
       end
 
@@ -106,7 +105,7 @@ class Gui
       end
 
       # Draws the options display.
-      (3 - options_amount).times do |x|
+      (4 - options_amount).times do |x|
         print @@default_line
       end
 
