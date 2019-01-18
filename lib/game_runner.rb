@@ -1,12 +1,12 @@
 require 'game_startup'
 
+
 # Rather than having to require each level here. Made a level text file which it will read the level from
 levels = LoadAndSave.level_load
 levels.each do |level|
   require level
 end
 
-require 'forest'
 
 # This holds the logic for running through the game.
 # It loads the level files holds the loop to run through the logic.
@@ -18,6 +18,7 @@ class GameRunner
   # Runs the Game Start up, then run the level loop.
   def self.run!
     # @@data contains the next step, the current level, and the players name.
+    Intro.run!
     @@data = GameStartup.run!
     level_start
   end
