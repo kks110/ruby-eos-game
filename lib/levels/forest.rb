@@ -38,7 +38,8 @@ class Forest
     message[3] = "A signpost nearby points in two directions. One to the forst and says 'Rackstone Forest'"
     message[4] = "The other to the town and says 'High Church'. You don't recognise either of these names"
     Gui.gui_message_intake(message)
-    return "next_level", "Town"
+    # return "next_level", "Town"
+    return "next_level", "Incomplete"
   end
 
   # If not, their journey continues. Deeper in to the forrest they go.
@@ -57,7 +58,8 @@ class Forest
     else
       choice = "knock"
     end
-    return choice, "Forest"
+    # return choice, "Forest"
+    return "next_level", "Incomplete"
   end
 
 

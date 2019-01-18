@@ -27,10 +27,10 @@ class GameRunner
   def self.level_start
     # While is not the end of the game, do this.
     while @@data[:step] != "end" && @@data[:level] != "end"
-      # Set level so it can be used to call the class.
-      level = Object.const_get(@@data[:level])
       # While not the next level, run through the steps of this level.
       while @@data[:step] != "next_level" do
+        # Set level so it can be used to call the class.
+        level = Object.const_get(@@data[:level])
         # Each step will return the next step and the level.
         @@data[:step], @@data[:level] = level.send(@@data[:step], @@data)
         # It auto saves after each decision.
@@ -39,7 +39,7 @@ class GameRunner
       # Sets the next step from next_level to be the start point, and
       # starts the loop again with the @@data[:level] being the next one.
       if @@data[:step] == "next_level"
-        @@data[:step] == "start_point"
+        @@data[:step] = "start_point"
       end
     end
   end
