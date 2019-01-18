@@ -9,6 +9,7 @@ class LoadAndSave
 
   # Sets the save folder path.
   @@save_folder = File.join(APP_ROOT, 'save_games')
+  @@level_file = File.join(APP_ROOT, 'lib', 'levels', 'levels.txt')
 
   # Checks the directory to see if there are any save files.
   def self.save_files?
@@ -149,7 +150,7 @@ class LoadAndSave
 
   # Loads the file selected, and takes the last line from it.
   # The lines are saved as hashes, so just evals the string to a hash and passes it back.
-  def self.load(file)
+  def self.load
     lines = IO.readlines(@@filepath)
     save_data = lines.last.chomp
     save_data = eval(save_data)
@@ -162,6 +163,15 @@ class LoadAndSave
     File.open(@@filepath, 'a') do |line|
       line << "#{[data].join("\t")}\n"
     end
+  end
+
+  # This read each line in the level file and adds to to the array.
+  def self.level_load
+    levels = IO.readlines(@@level_file)
+    levels.each_with_index do |level, index|
+      levels[index] = level.chomp
+    end
+    return levels
   end
 
 

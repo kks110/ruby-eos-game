@@ -13,7 +13,7 @@ class GameStartup
   def self.run!
     load_file = load_save?
     if load_file
-      @@data = LoadAndSave.load(load_file)
+      @@data = LoadAndSave.load
       # If there is it will return the saved data is necessary.
       return @@data
     else
@@ -36,7 +36,7 @@ class GameStartup
     file = LoadAndSave.filepath(player.name)
     if LoadAndSave.name_check(player.name)
       # If there is a player / save with that name, it will ask if you want to load it.
-      @@data = LoadAndSave.load(file)
+      @@data = LoadAndSave.load
       return @@data
     end
     # If not, it will set up the first level data, create

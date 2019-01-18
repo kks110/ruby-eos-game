@@ -1,4 +1,11 @@
 require 'game_startup'
+
+# Rather than having to require each level here. Made a level text file which it will read the level from
+levels = LoadAndSave.level_load
+levels.each do |level|
+  require level
+end
+
 require 'forest'
 
 # This holds the logic for running through the game.
