@@ -10,7 +10,9 @@ class GameStartup
   attr_accessor :data
 
   # First checks is there is a file to load or a first run of the game.
+  # Also confirms that the save folder exists.
   def self.run!
+    LoadAndSave.save_folder?
     load_file = load_save?
     if load_file
       @@data = LoadAndSave.load

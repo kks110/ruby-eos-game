@@ -11,6 +11,13 @@ class LoadAndSave
   @@save_folder = File.join(APP_ROOT, 'save_games')
   @@level_file = File.join(APP_ROOT, 'lib', 'levels', 'levels.txt')
 
+  # Confirms the save folder exists, and creates it if not
+  def self.save_folder?
+    if !Dir.exists?(@@save_folder)
+      Dir.mkdir(@@save_folder)
+    end
+  end
+
   # Checks the directory to see if there are any save files.
   def self.save_files?
     return true unless Dir.empty?(@@save_folder)
