@@ -16,11 +16,11 @@ def self.start_point(data)
   print "|///                                                                                                                \\\\\\|"
   print "|//                                                                                                                  \\\\|"
   print "|/                                    Unfortnatly, this is all I've written so far                                    \\|"
-  print "|                               After this screen the game will end and throw an error.                                |"
+  print "|                                                                                                                      |"
   print "|\\                                          Stay tuned for more coming soon :)                                        /|"
   print "|\\\\                                                                                                                  //|"
   print "|\\\\\\                                                                                                                ///|"
-  print "|\\\\\\\\                                                                                                              ////|"
+  print "|\\\\\\\\                                          Press 'Ctrl + C' to exit.                                           ////|"
   print "|\\\\\\\\\\                                                                                                            /////|"
   print "|\\\\\\\\\\\\                                                                                                          //////|"
   print "|\\\\\\\\\\\\\\                                                                                                        ///////|"
@@ -33,6 +33,7 @@ def self.start_point(data)
   print "------------------------------------------------------------------------------------------------------------------------"
   print ">>"
   gets
+  return "start_point", "Incomplete"
 end
 
 end
