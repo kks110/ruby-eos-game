@@ -104,6 +104,47 @@ class Forest
     return choice, "Forest"
   end
 
+def self.go_in(data)
+  message = []
+  message[0] = "As you walk in you smell food cooking"
+  message[1] = "You look around and you can't see anyone"
+  message[2] = "You shout 'Hello?' but there is no response"
+  message[3] = "You see that food was being prepared as there is a knife and chopped veg on the table."
+  message[4] = "You dont remember the last time you ate"
+  message[5] = "You hear someone coming out side."
+  options = []
+  options[0] = "Hide"
+  options[1] = "Say hello?"
+  choice = Gui.gui_message_intake(message, options)
+  if choice == "Hide"
+    choice = "hide"
+  else
+    choice = "say_hello"
+  end
+  return choice, "Forest"
+end
+
+def self.say_hello(data)
+  message = []
+  message[0] = "A man enters holding an axe in one hand and wood in the other"
+  message[1] = "'Hello' he responds, 'Who are you?'"
+  message[2] = "He shifts the axe in his hand"
+  options = []
+  options[0] = "Attack with chopping knife"
+  options[1] = "Explain the situation"
+  choice = Gui.gui_message_intake(message, options)
+  if choice = "Attack with chopping knife"
+    choice = "attack"
+  else
+    choice = "explain"
+  end
+  return choice, "Forest"
+end
+
+
+
+
+
 
 
 
