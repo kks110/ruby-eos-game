@@ -58,15 +58,50 @@ class Forest
     else
       choice = "knock"
     end
-    # return choice, "Forest"
-    return "next_level", "Incomplete"
+    return choice, "Forest"
   end
 
 
   def self.go_past(data)
+    message = []
+    message[0] = "You journey deeper in to the forest."
+    message[1] = "The trees continue to close in around you."
+    message[2] = "Less and less light is coming through the canopy above"
+    Gui.gui_message_intake(message)
+    # return "next_level", "deep_forest"
+    return "next_level", "Incomplete"
   end
 
   def self.knock(data)
+    message = []
+    message[0] = "You knock on the door, no one answeres"
+    message[1] = "You knock again and still no answer"
+    message[2] = "You can't hear anyone moving around"
+    options = []
+    options[0] = "Walk away"
+    options[1] = "Try opening the door"
+    choice = Gui.gui_message_intake(message, options)
+    if choice == "Walk away"
+      choice = "go_past"
+    else
+      choice = "open_door"
+    end
+    return choice, "Forest"
+  end
+
+  def self.open_door(data)
+    message = []
+    message[0] = "The door opens up."
+    options = []
+    options[0] = "Walk away"
+    options[1] = "Go in"
+    choice = Gui.gui_message_intake(message, options)
+    if choice == "Walk away"
+      choice = "go_past"
+    else
+      choice = "go_in"
+    end
+    return choice, "Forest"
   end
 
 
