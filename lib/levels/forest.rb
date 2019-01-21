@@ -133,7 +133,7 @@ def self.say_hello(data)
   options[0] = "Attack with chopping knife"
   options[1] = "Explain the situation"
   choice = Gui.gui_message_intake(message, options)
-  if choice = "Attack with chopping knife"
+  if choice == "Attack with chopping knife"
     choice = "attack"
   else
     choice = "explain"
@@ -141,11 +141,57 @@ def self.say_hello(data)
   return choice, "Forest"
 end
 
+def self.hide(data)
+  message = []
+  message[0] = "You dive under the table and try to keep yourself hidden"
+  message[1] = "He puts the axe in the corner, and adds the wood to the stove"
+  message[2] = "You starts chopping on the table above you"
+  options = []
+  options[0] = "Try and sneak out"
+  options[1] = "Stay hidden"
+  choice = Gui.gui_message_intake(message, options)
+  if choice == "Try and sneak out"
+    choice = "sneak"
+  else
+    choice = "stay"
+  end
+  return choice, "Forest"
+end
 
+def self.sneak(data)
+  message = []
+  message[0] = "You try and creap out"
+  message[1] = "Unfortuantly, your sneaking skills are not as good as you hope"
+  Gui.gui_message_intake(message)
+  return "caught", "Forest"
+end
 
+def self.stay(data)
+  message = []
+  message[0] = "You remain under the table"
+  message[1] = "The man choppig drops something on the floor"
+  message[2] = "It rolls under the table towards you"
+  message[3] = "You the man bend down to pick it up"
+  message[4] = "He sees you and you jump out from under the table"
+  Gui.gui_message_intake(message)
+  return "caught", "Forest"
+end
 
-
-
-
+def self.caught(data)
+  message = []
+  message[0] = "The man looks at you, weilding the chopping knife"
+  message[1] = "'Who are you and what were you doing under my table!?'"
+  message[2] = "You see the axe sitting in the corner of the room"
+  options = []
+  options[0] = "Grab the axe and attack"
+  options[1] = "Explain the situation"
+  choice = Gui.gui_message_intake(message, options)
+  if choice == "Grab the axe and attack"
+    choice = "attack"
+  else
+    choice = "explain"
+  end
+  return choice, "Forest"
+end
 
 end
