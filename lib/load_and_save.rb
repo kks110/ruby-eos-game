@@ -142,9 +142,6 @@ class LoadAndSave
 
   # This displays the list of files that can be loaded from.
   # The user then picks which one to load.
-  # Dir.entries also returns the . and .. so had to work around that a bit.
-  # Tried to do an if to skip those, but couldn't get it working.
-  # Instead it uses 2 counters to name them -1 and 0, then only displays from 1 up.
   def self.file_to_load
     message = []
     options = []
