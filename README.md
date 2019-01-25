@@ -1,4 +1,4 @@
-#Eos: Dawn
+# Eos: Dawn
 A game I made to try and learn Ruby.
 
 It's a choose your own adventure style game.
