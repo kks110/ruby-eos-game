@@ -15,7 +15,7 @@ def self.start_point(data)
   print "|////                                                                                                              \\\\\\\\|"
   print "|///                                                                                                                \\\\\\|"
   print "|//                                                                                                                  \\\\|"
-  print "|/                                    Unfortnatly, this is all I've written so far                                    \\|"
+  print "|/                                   Unfortunately, this is all I've written so far                                   \\|"
   print "|                                                                                                                      |"
   print "|\\                                          Stay tuned for more coming soon :)                                        /|"
   print "|\\\\                                                                                                                  //|"
