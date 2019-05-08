@@ -5,8 +5,8 @@ require 'choice_checker'
 class Gui
 
   # This sets up the default output setting
-  @lines = "|" * 4
-  @spaces = " " * 112
+  @lines = '|' * 4
+  @spaces = ' ' * 112
   @default_line = @lines + @spaces + @lines
 
   # First you send in the message to display the and options to pick.
@@ -14,8 +14,8 @@ class Gui
     @message_display = []
     @options_display = []
     # This then passes them to the line length check to make sure its an even amount of characters
-    gui_line_length_check(message_array, "message")
-    gui_line_length_check(options_array, "options")
+    gui_line_length_check(message_array, 'message')
+    gui_line_length_check(options_array, 'options')
     # This then goes to the writer to dispaly the information. Passing in the options as well.
     return gui_writer(options_array)
   end
@@ -31,7 +31,7 @@ class Gui
         gui_line_maker(message, message_length, m_or_o, index)
       else
         message_length += 1
-        message += " "
+        message += ' '
         gui_line_maker(message, message_length, m_or_o, index)
       end
     end
@@ -42,10 +42,10 @@ class Gui
     message_spaces = 112 - message_length
     message_spaces_halfs = message_spaces / 2
     options_spaces = 63 - message_length
-    if m_or_o == "message"
-      @message_display << @lines + " " * message_spaces_halfs + message + " " * message_spaces_halfs + @lines
+    if m_or_o == 'message'
+      @message_display << @lines + ' ' * message_spaces_halfs + message + ' ' * message_spaces_halfs + @lines
     else
-      @options_display << @lines + " " * 45 + (index + 1).to_s + " - " + message + " " * options_spaces + @lines
+      @options_display << @lines + ' ' * 45 + (index + 1).to_s + ' - ' + message + ' ' * options_spaces + @lines
     end
   end
 
@@ -77,13 +77,13 @@ class Gui
       message_amount, options_amount = lines_calcualtions
       # Draws the lines at the top of the screen.
       120.times do |x|
-        print "-"
+        print '-'
       end
       60.times do |x|
-        print "<>"
+        print '<>'
       end
       120.times do |x|
-        print "-"
+        print '-'
       end
 
       # Draws the top message display.
@@ -101,7 +101,7 @@ class Gui
 
       # raws the line in the middle of the screen.
       120.times do |x|
-        print "-"
+        print '-'
       end
 
       # Draws the options display.
@@ -119,16 +119,16 @@ class Gui
 
       # Draws the lines at the bottom of the screen.
       120.times do |x|
-        print "-"
+        print '-'
       end
       60.times do |x|
-        print "<>"
+        print '<>'
       end
       120.times do |x|
-        print "-"
+        print '-'
       end
       # Adds a prompt, ready for user input.
-      print ">> "
+      print '>> '
       # Grabs the answer.
       answer = gets.chomp.downcase.capitalize
       # Checks if it needs an answer. If no return compelte.
@@ -140,7 +140,7 @@ class Gui
         if ChoiceCheck.answer_check(answer, options)
           return ChoiceCheck.answer_check(answer, options)
         else
-          @options_display << @lines + " " * 37 + "Please enter one of the option numbers" + " " * 37 + @lines
+          @options_display << @lines + ' ' * 37 + 'Please enter one of the option numbers' + ' ' * 37 + @lines
         end
       end
     end

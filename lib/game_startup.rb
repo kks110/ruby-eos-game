@@ -43,8 +43,8 @@ class GameStartup
     end
     # If not, it will set up the first level data, create
     # and check the save data, and return it to the game runner.
-    data = {step: "start_point", level: "Forest", character: player.name}
-    puts "There was an error reading the save file" unless LoadAndSave.file_check
+    data = {step: 'start_point', level: 'Forest', character: player.name}
+    puts 'There was an error reading the save file' unless LoadAndSave.file_check
     return data
   end
 
@@ -53,17 +53,17 @@ class GameStartup
   # or start a new game.
   def self.load_save?
     while LoadAndSave.save_files?
-    message = []
-    options = []
-    message[0] = "Would you like to load a game, or start a new one?"
-    options[0] = "New Game"
-    options[1] = "Load Game"
-    options[2] = "Delete save"
-    answer = Gui.gui_message_intake(message, options)
+      message = ['Would you like to load a game, or start a new one?']
+      options = [
+        'New Game',
+        'Load Game',
+        'Delete save'
+      ]
+      answer = Gui.gui_message_intake(message, options)
       if answer == "1" || answer == "New game"
-        return false
+        false
       elsif answer == "2" || answer == "Load game"
-        return LoadAndSave.file_to_load
+        LoadAndSave.file_to_load
       else
         LoadAndSave.delete
       end
