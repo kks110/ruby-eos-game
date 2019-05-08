@@ -5,14 +5,14 @@ require 'choice_checker'
 class Gui
 
   # This sets up the default output setting
-  @@lines = "|" * 4
-  @@spaces = " " * 112
-  @@default_line = @@lines + @@spaces + @@lines
+  @lines = "|" * 4
+  @spaces = " " * 112
+  @default_line = @lines + @spaces + @lines
 
   # First you send in the message to display the and options to pick.
   def self.gui_message_intake(message_array, options_array=[])
-    @@message_display = []
-    @@options_display = []
+    @message_display = []
+    @options_display = []
     # This then passes them to the line length check to make sure its an even amount of characters
     gui_line_length_check(message_array, "message")
     gui_line_length_check(options_array, "options")
@@ -43,28 +43,28 @@ class Gui
     message_spaces_halfs = message_spaces / 2
     options_spaces = 63 - message_length
     if m_or_o == "message"
-      @@message_display << @@lines + " " * message_spaces_halfs + message + " " * message_spaces_halfs + @@lines
+      @message_display << @lines + " " * message_spaces_halfs + message + " " * message_spaces_halfs + @lines
     else
-      @@options_display << @@lines + " " * 45 + (index + 1).to_s + " - " + message + " " * options_spaces + @@lines
+      @options_display << @lines + " " * 45 + (index + 1).to_s + " - " + message + " " * options_spaces + @lines
     end
   end
 
   # This checks the array is an even amount of lines, if not, it adds a default line at the bottom.
   # This make sure its even, ready for when its drawn to the screen later.
   def self.gui_message_line_tidy
-    if @@message_display.length % 2 == 0
-      @@message_display << @@default_line
+    if @message_display.length % 2 == 0
+      @message_display << @default_line
     end
-    if @@options_display.length % 2 == 0
-      @@options_display << @@default_line
+    if @options_display.length % 2 == 0
+      @options_display << @default_line
     end
   end
 
   # This does the calculations to pass to the drawers to make sure there is always the same amount of lines on the screen.
   def self.lines_calcualtions
-    message_stage = @@message_display.length
+    message_stage = @message_display.length
     message_amount = (message_stage - 1) / 2
-    options_stage = @@options_display.length
+    options_stage = @options_display.length
     options_amount = (options_stage - 1) / 2
     return message_amount, options_amount
   end
@@ -88,15 +88,15 @@ class Gui
 
       # Draws the top message display.
       (6 - message_amount).times do |x|
-        print @@default_line
+        print @default_line
       end
 
-      @@message_display.each do |message|
+      @message_display.each do |message|
         print message
       end
 
       (7 - message_amount).times do |x|
-        print @@default_line
+        print @default_line
       end
 
       # raws the line in the middle of the screen.
@@ -106,15 +106,15 @@ class Gui
 
       # Draws the options display.
       (4 - options_amount).times do |x|
-        print @@default_line
+        print @default_line
       end
 
-      @@options_display.each do |message|
+      @options_display.each do |message|
         print message
       end
 
       (3 - options_amount).times do |x|
-        print @@default_line
+        print @default_line
       end
 
       # Draws the lines at the bottom of the screen.
@@ -140,7 +140,7 @@ class Gui
         if ChoiceCheck.answer_check(answer, options)
           return ChoiceCheck.answer_check(answer, options)
         else
-          @@options_display << @@lines + " " * 37 + "Please enter one of the option numbers" + " " * 37 + @@lines
+          @options_display << @lines + " " * 37 + "Please enter one of the option numbers" + " " * 37 + @lines
         end
       end
     end

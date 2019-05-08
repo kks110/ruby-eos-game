@@ -8,24 +8,24 @@ require 'gui_loader'
 class LoadAndSave
 
   # Sets the save folder path.
-  @@save_folder = File.join(APP_ROOT, 'save_games')
-  @@level_file = File.join(APP_ROOT, 'lib', 'levels', 'levels.txt')
+  @save_folder = File.join(APP_ROOT, 'save_games')
+  @level_file = File.join(APP_ROOT, 'lib', 'levels', 'levels.txt')
 
   # Confirms the save folder exists, and creates it if not
   def self.save_folder?
-    if !Dir.exists?(@@save_folder)
-      Dir.mkdir(@@save_folder)
+    if !Dir.exists?(@save_folder)
+      Dir.mkdir(@save_folder)
     end
   end
 
   # Checks the directory to see if there are any save files.
   def self.save_files?
-    return true unless Dir.empty?(@@save_folder)
+    return true unless Dir.empty?(@save_folder)
   end
 
   # Counts the amount of save files, then asks to load or delete one if over 6.
   def self.save_file_amount?
-    amount = Dir.entries(@@save_folder)
+    amount = Dir.entries(@save_folder)
     amount = amount.length - 2
     if amount >= 6
       message = []
@@ -47,7 +47,7 @@ class LoadAndSave
 
   # Sets the save files based on aplyer name.
   def self.filepath(player)
-    @@filepath = File.join(APP_ROOT, 'save_games', player + ".save")
+    @filepath = File.join(APP_ROOT, 'save_games', player + ".save")
   end
 
   # Checks if the file exists and is usable, if not creates it.
@@ -62,16 +62,16 @@ class LoadAndSave
 
   # The logic to check if its usable.
   def self.file_usable?
-    return false unless @@filepath
-    return false unless File.exists?(@@filepath)
-    return false unless File.writable?(@@filepath)
-    return false unless File.readable?(@@filepath)
+    return false unless @filepath
+    return false unless File.exists?(@filepath)
+    return false unless File.writable?(@filepath)
+    return false unless File.readable?(@filepath)
     return true
   end
 
   # The logic to make the file.
   def self.make_file
-    file = File.open(@@filepath, 'w')
+    file = File.open(@filepath, 'w')
     file.close
     file_usable?
     return true
@@ -82,7 +82,7 @@ class LoadAndSave
   # or if they want to overwrite it.
   def self.name_check(name)
     name = name + ".save"
-    files = Dir.entries(@@save_folder)
+    files = Dir.entries(@save_folder)
     files.each do |file_name|
       if name == file_name
         message = []
@@ -96,7 +96,7 @@ class LoadAndSave
           if answer == "1" || answer == "Use"
              return true
            else answer == "2" || answer == "Overwrite"
-             file = File.open(@@filepath, 'w')
+             file = File.open(@filepath, 'w')
              file.close
              return false
           end
@@ -109,7 +109,7 @@ class LoadAndSave
   # Gets a list of save files names and returns as an array.
   def self.list_of_filenames
     options = []
-    files = Dir.entries(@@save_folder)
+    files = Dir.entries(@save_folder)
     files_count = files.length
     counter_1 = 0
     counter_2 = -1
@@ -148,14 +148,14 @@ class LoadAndSave
     options = list_of_filenames
     message[0] =  "Which save would you like to load?"
     answer = Gui.gui_message_intake(message, options)
-    @@filepath = File.join(APP_ROOT, 'save_games', answer)
+    @filepath = File.join(APP_ROOT, 'save_games', answer)
     return answer
   end
 
   # Loads the file selected, and takes the last line from it.
   # The lines are saved as hashes, so just evals the string to a hash and passes it back.
   def self.load
-    lines = IO.readlines(@@filepath)
+    lines = IO.readlines(@filepath)
     save_data = lines.last.chomp
     save_data = eval(save_data)
     return save_data
@@ -164,14 +164,14 @@ class LoadAndSave
 
   # Gets passed in the data hash or next step, level and player name and appends it to the file.
   def self.save(data)
-    File.open(@@filepath, 'a') do |line|
+    File.open(@filepath, 'a') do |line|
       line << "#{[data].join("\t")}\n"
     end
   end
 
   # This read each line in the level file and adds to to the array.
   def self.level_load
-    levels = IO.readlines(@@level_file)
+    levels = IO.readlines(@level_file)
     levels.each_with_index do |level, index|
       levels[index] = level.chomp
     end

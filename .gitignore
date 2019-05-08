@@ -3,3 +3,5 @@
 test_file.rb
 to_do.txt
 bugs.txt
+.idea/
+.DS_Store
