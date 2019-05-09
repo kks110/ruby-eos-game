@@ -25,7 +25,7 @@ class GameStartup
   end
 
   # The new game will ask the player for the character, and will
-  # do some checkes to see if there is already a player with that name.
+  # do some checks to see if there is already a player with that name.
   # Will also create the save file.
   # I have put in a 6 file max limit, so will check and see if there are 6 save files as well.
   def self.new_game

@@ -28,13 +28,12 @@ class LoadAndSave
     amount = Dir.entries(@save_folder)
     amount = amount.length - 2
     if amount >= 6
-      message = []
-      options = []
-      message[0] = "You have reached your maximum amount of save files."
-      message[1] = "If you want to start a new game, you will have to overwrite one"
-      message[2] = "Would you like to delete one or load one?"
-      options[0] = "Overwrite"
-      options[1] = "Load"
+      message = [
+        'You have reached your maximum amount of save files.',
+        'If you want to start a new game, you will have to overwrite one',
+        'Would you like to delete one or load one?'
+      ]
+      options = ['Overwrite', 'Load']
       answer = Gui.gui_message_intake(message, options)
       if answer == "1" || answer == "Overwrite"
         self.delete
@@ -47,7 +46,7 @@ class LoadAndSave
 
   # Sets the save files based on aplyer name.
   def self.filepath(player)
-    @filepath = File.join(APP_ROOT, 'save_games', player + ".save")
+    @filepath = File.join(APP_ROOT, 'save_games', player + '.save')
   end
 
   # Checks if the file exists and is usable, if not creates it.
@@ -63,7 +62,7 @@ class LoadAndSave
   # The logic to check if its usable.
   def self.file_usable?
     return false unless @filepath
-    return false unless File.exists?(@filepath)
+    return false unless File.exist?(@filepath)
     return false unless File.writable?(@filepath)
     return false unless File.readable?(@filepath)
     return true
@@ -85,12 +84,11 @@ class LoadAndSave
     files = Dir.entries(@save_folder)
     files.each do |file_name|
       if name == file_name
-        message = []
-        options = []
-        message[0] = "File already exists with that name"
-        message[1] = "Would you like to load that file or overwrite it"
-        options[0] = "Use"
-        options[1] = "Overwrite"
+        message = [
+          'File already exists with that name',
+          'Would you like to load that file or overwrite it'
+        ]
+        options = ['Use', 'Overwrite']
         loop do
           answer = Gui.gui_message_intake(message, options)
           if answer == "1" || answer == "Use"
@@ -131,22 +129,18 @@ class LoadAndSave
 
   # Asks which file to be deleted then deletes it.
   def self.delete
-    message = []
-    options = []
+    message = ['Which save would you like to delete?']
     options = list_of_filenames
-    message[0] =  "Which save would you like to delete?"
     answer = Gui.gui_message_intake(message, options)
-    fillepath = File.join(APP_ROOT, 'save_games', answer)
-    File.delete(fillepath)
+    filepath = File.join(APP_ROOT, 'save_games', answer)
+    File.delete(filepath)
   end
 
   # This displays the list of files that can be loaded from.
   # The user then picks which one to load.
   def self.file_to_load
-    message = []
-    options = []
+    message = ['Which save would you like to load?']
     options = list_of_filenames
-    message[0] =  "Which save would you like to load?"
     answer = Gui.gui_message_intake(message, options)
     @filepath = File.join(APP_ROOT, 'save_games', answer)
     return answer
