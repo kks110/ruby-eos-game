@@ -30,22 +30,21 @@ class GameStartup
   # I have put in a 6 file max limit, so will check and see if there are 6 save files as well.
   def self.new_game
     if LoadAndSave.save_file_amount?
-      file = LoadAndSave.file_to_load
-      data = LoadAndSave.load(file)
-      return data
-    end
-    player = Character.new
-    file = LoadAndSave.filepath(player.name)
-    if LoadAndSave.name_check(player.name)
-      # If there is a player / save with that name, it will ask if you want to load it.
+      LoadAndSave.file_to_load
       data = LoadAndSave.load
       return data
     end
+    player = Character.new
+    LoadAndSave.filepath(player.name)
+    if LoadAndSave.name_check(player.name)
+      # If there is a player / save with that name, it will ask if you want to load it.
+      return LoadAndSave.load
+    end
     # If not, it will set up the first level data, create
     # and check the save data, and return it to the game runner.
-    data = {step: 'start_point', level: 'Forest', character: player.name}
-    puts 'There was an error reading the save file' unless LoadAndSave.file_check
-    return data
+    data = {step: 'start_point', level: 'Forest', character: player.name, date: Time.now.to_s}
+    puts 'There was an error reading the save file' unless LoadAndSave.file_check(data)
+    return LoadAndSave.load
   end
 
   # If it find a save file, it will ask if you want to load a save file
@@ -60,12 +59,13 @@ class GameStartup
         'Delete save'
       ]
       answer = Gui.gui_message_intake(message, options)
-      if answer == "1" || answer == "New game"
-        false
-      elsif answer == "2" || answer == "Load game"
-        LoadAndSave.file_to_load
+      if answer == "New game"
+        return false
+      elsif answer == "Load game"
+        return LoadAndSave.file_to_load
       else
         LoadAndSave.delete
+        return false
       end
     end
   end

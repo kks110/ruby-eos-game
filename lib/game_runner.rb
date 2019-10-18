@@ -39,7 +39,7 @@ class GameRunner
         LoadAndSave.save(data)
       end
       # Sets the next step from next_level to be the start point, and
-      # starts the loop again with the @@data[:level] being the next one.
+      # starts the loop again with the data[:level] being the next one.
       if data[:step] == 'next_level'
         data[:step] = 'start_point'
       end
