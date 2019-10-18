@@ -14,6 +14,7 @@ class GameStartup
   def self.run!
     LoadAndSave.save_folder?
     load_file = load_save?
+    puts load_file
     if load_file
       data = LoadAndSave.load
       # If there is it will return the saved data is necessary.
@@ -61,11 +62,11 @@ class GameStartup
       ]
       answer = Gui.gui_message_intake(message, options)
       if answer == "1" || answer == "New game"
-        false
+        return false
       elsif answer == "2" || answer == "Load game"
-        LoadAndSave.file_to_load
+        return LoadAndSave.file_to_load
       else
-        LoadAndSave.delete
+        return LoadAndSave.delete
       end
     end
   end
