@@ -8,8 +8,8 @@ class Character
   def initialize
     message = []
     message[0] = 'Welcome, what is your name?: '
-    name = Gui.gui_message_intake(message)
-    @name = name.downcase.capitalize
+    player_name = ''
+    player_name = Gui.gui_message_intake(message) while player_name == ''
+    @name = player_name.downcase.capitalize
   end
-
 end
