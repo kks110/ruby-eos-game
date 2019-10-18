@@ -4,6 +4,7 @@
 # Any checks of the file / folder and any writing / reading from the save files is done here.
 
 require 'gui_loader'
+require "json"
 
 class LoadAndSave
 
@@ -35,7 +36,7 @@ class LoadAndSave
       ]
       options = ['Overwrite', 'Load']
       answer = Gui.gui_message_intake(message, options)
-      if answer == "1" || answer == "Overwrite"
+      if answer == "Overwrite"
         self.delete
         return false
       else
@@ -44,17 +45,17 @@ class LoadAndSave
     end
   end
 
-  # Sets the save files based on aplyer name.
+  # Sets the save files based on player name.
   def self.filepath(player)
     @filepath = File.join(APP_ROOT, 'save_games', player + '.save')
   end
 
   # Checks if the file exists and is usable, if not creates it.
-  def self.file_check
+  def self.file_check(data)
     if file_usable?
       return true
     else
-      make_file
+      make_file(data)
       return true
     end
   end
@@ -69,11 +70,12 @@ class LoadAndSave
   end
 
   # The logic to make the file.
-  def self.make_file
-    file = File.open(@filepath, 'w')
-    file.close
+  def self.make_file(seed_data)
+    save_data = { data: seed_data,  previous: {}}
+    File.open(@filepath,'w') do |f|
+      f.puts JSON.pretty_generate(save_data)
+    end
     file_usable?
-    return true
   end
 
   # This checks if the save file already exists.
@@ -91,12 +93,12 @@ class LoadAndSave
         options = ['Use', 'Overwrite']
         loop do
           answer = Gui.gui_message_intake(message, options)
-          if answer == "1" || answer == "Use"
-             return true
-           else answer == "2" || answer == "Overwrite"
-             file = File.open(@filepath, 'w')
-             file.close
-             return false
+          if answer == "Use"
+            return true
+          else answer == "Overwrite"
+            file = File.open(@filepath, 'w')
+            file.close
+            return false
           end
         end
       end
@@ -143,23 +145,28 @@ class LoadAndSave
     options = list_of_filenames
     answer = Gui.gui_message_intake(message, options)
     @filepath = File.join(APP_ROOT, 'save_games', answer)
-    return answer
   end
 
   # Loads the file selected, and takes the last line from it.
   # The lines are saved as hashes, so just evals the string to a hash and passes it back.
   def self.load
-    lines = IO.readlines(@filepath)
-    save_data = lines.last.chomp
-    save_data = eval(save_data)
-    return save_data
+    json = File.read(@filepath)
+    save_data = JSON.parse(json,:symbolize_names => true)
+    save_data[:data]
   end
 
 
   # Gets passed in the data hash or next step, level and player name and appends it to the file.
   def self.save(data)
-    File.open(@filepath, 'a') do |line|
-      line << "#{[data].join("\t")}\n"
+    json = File.read(@filepath)
+    save_data = JSON.parse(json, symbolize_names: true)
+    previous_level = { step: save_data[:data][:step], level: save_data[:data][:level] }
+    key = save_data[:previous].length
+    save_data[:previous][key] = previous_level
+    save_data[:data][:step] = data[:step]
+    save_data[:data][:level] = data[:level]
+    File.open(@filepath,'w') do |f|
+      f.puts JSON.pretty_generate(save_data)
     end
   end
 
