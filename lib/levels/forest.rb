@@ -5,11 +5,11 @@ class Forest
   # Player starts here, waking up in the forest.
   def self.start_point(data)
     message = [
-      'You see the sun creeping through your closed eyes.',
-      'As you begin to open them, you realise you are no longer in your warm bed.',
-      'As you look around you see trees. How did you get here?',
-      'You seem to be fully dressed.',
-      "'Come on #{data[:character]}, lets get up!' you think."
+        'You wake up groggily, arms stretched out to grasp the duve- wait, you have no duvet!',
+        'Yu realise you are no longer in your warm bed, but are instead surrounded by thick trees in a sunlit forest',
+        'You look around at the towering trees, and think to yourself "How did I get here?"?',
+        'You glance down and see that you are dressed in your normal clothes - a casual t shirt, some brown trousers and comfortable shoes',
+        "You hear a rustle from nearby, and nervously think to yourself ' #{data[:character]}, you'd better get moving!'"
     ]
     Gui.gui_message_intake(message)
     ['left_or_right', 'Forest']
@@ -18,12 +18,12 @@ class Forest
   # The first decision, left or right.
   def self.left_or_right(data)
     message = [
-      'You look around and see a path near by.',
-      "You cannot see any sign posts and you don't recognise the area.",
-      'You can either go left or right.',
-      'Which way do you go?: '
+        'You nervously look around, and see that there is a path that could lead you either left or right',
+        'To the left you see the trees narrowing into what looks to be a small town',
+        'To the right you see the trees thickening, and smoke rising from what could be a small fire or cottage',
+        'Which way do you go?: '
     ]
-    options = ['Left', 'Right']
+    options = %w(Left Right)
     choice = Gui.gui_message_intake(message, options)
     [choice.downcase, 'Forest']
   end
