@@ -16,7 +16,7 @@ class Gui
     # This then passes them to the line length check to make sure its an even amount of characters
     gui_line_length_check(message_array, 'message')
     gui_line_length_check(options_array, 'options')
-    # This then goes to the writer to dispaly the information. Passing in the options as well.
+    # This then goes to the writer to display the information. Passing in the options as well.
     return gui_writer(options_array)
   end
 

@@ -31,11 +31,12 @@ class Forest
   # If they picked left, they are out, and are heading to the town.
   def self.left(data)
     message = [
-      'You walk further and the trees begin to thin out.',
-      'You start to see buildings through the trees.',
-      'You emerge from the forest and before you is a town.',
-      "A signpost nearby points in two directions. One to the forest which says 'Rackstone Forest'",
-      "The other to the town which says 'High Church'. You don't recognise either of these names."
+      'You decide to go left, the thought of a town and civilization appealing to you',
+      'You think to yourself that you might finally be able to get a change of clothes at a town!' ,
+      'Emerging from the trees, you find yourself in the shadow of a mighty stone keep.',
+      "Flags you don't recognise fly from the parapets, and you realise that you are a long way from home.",
+      'You look around before spotting a signpost that may give you some clarity on where you are...',
+      'The signpost simply says "NorthWatch"',
     ]
     Gui.gui_message_intake(message)
     # return "next_level", "Town"
@@ -45,18 +46,18 @@ class Forest
   # If not, their journey continues. Deeper in to the forest they go.
   def self.right(data)
     message = [
-      'You start your journey along this road to see where it goes.',
-      'As you continue, the forest seems to get thicker around you.',
+      "Your stomach rumbles, and it feels like you haven't eaten in a long time. You make your way towards the fire in the hope that there is something to eat. ",
+      'As you continue, the forest seems to thicken, ',
       "Off to the side of the path, you see smoke rising. As you get closer you realise it's a house.",
       'You come closer to the front of the house.'
     ]
     options = ['Walk past', 'Walk up and knock on the door']
     response = Gui.gui_message_intake(message, options)
-    if response == 'Walk past'
-      choice = 'go_past'
-    else
-      choice = 'knock'
-    end
+    choice = if response == 'Walk past'
+               'go_past'
+             else
+               'knock'
+             end
     [choice, 'Forest']
   end
 
@@ -80,11 +81,11 @@ class Forest
     ]
     options = ["Walk away", "Try opening the door"]
     response = Gui.gui_message_intake(message, options)
-    if response == "Walk away"
-      choice = "go_past"
-    else
-      choice = "open_door"
-    end
+    choice = if response == "Walk away"
+               "go_past"
+             else
+      "open_door"
+             end
     [choice, 'Forest']
   end
 
@@ -92,11 +93,11 @@ class Forest
     message = ['The door opens.']
     options = ['Walk away', 'Go in']
     response = Gui.gui_message_intake(message, options)
-    if response == "Walk away"
-      choice = "go_past"
-    else
-      choice = "go_in"
-    end
+    choice = if response == "Walk away"
+               "go_past"
+             else
+      "go_in"
+             end
     [choice, 'Forest']
   end
 
@@ -111,11 +112,11 @@ class Forest
   ]
     options = ['Hide', 'Say hello?']
     response = Gui.gui_message_intake(message, options)
-    if response == "Hide"
-      choice = "hide"
-    else
-      choice = "say_hello"
-    end
+    choice = if response == "Hide"
+               "hide"
+             else
+      "say_hello"
+             end
      [choice, 'Forest']
   end
 
@@ -127,11 +128,11 @@ class Forest
     ]
     options = ['Attack with chopping knife', 'Explain the situation']
     response = Gui.gui_message_intake(message, options)
-    if response == "Attack with chopping knife"
-      choice = "attack"
-    else
-      choice = "explain"
-    end
+    choice = if response == "Attack with chopping knife"
+               "attack"
+             else
+      "explain"
+             end
     [choice, 'Forest']
   end
 
@@ -143,11 +144,11 @@ class Forest
     ]
     options = ['Try and sneak out', 'Stay hidden']
     response = Gui.gui_message_intake(message, options)
-    if response == 'Try and sneak out'
-      choice = 'sneak'
-    else
-      choice = 'stay'
-    end
+    choice = if response == 'Try and sneak out'
+               'sneak'
+             else
+      'stay'
+             end
     [choice, 'Forest']
   end
 
@@ -180,11 +181,11 @@ class Forest
     ]
     options = ['Grab the axe and attack' , 'Explain the situation']
     response = Gui.gui_message_intake(message, options)
-    if response == "Grab the axe and attack"
-      choice = "attack"
-    else
-      choice = "explain"
-    end
+    choice = if response == "Grab the axe and attack"
+               "attack"
+             else
+      "explain"
+             end
     [choice, 'Forest']
   end
 
@@ -211,11 +212,11 @@ class Forest
     ]
     options = ['Stay for the night', 'Refuse']
     response = Gui.gui_message_intake(message, options)
-    if response == "Stay for the night"
-      choice = "stay_night"
-    else
-      choice = "refuse"
-    end
+    choice = if response == "Stay for the night"
+               "stay_night"
+             else
+      "refuse"
+             end
     [choice, 'Forest']
   end
 
@@ -227,11 +228,11 @@ class Forest
     ]
     options = ['Back the way you came from', 'Carry on']
     response = Gui.gui_message_intake(message, options)
-    if response == "Back the way you came from"
-      choice = "left"
-    else
-      choice = "go_past"
-    end
+    choice = if response == "Back the way you came from"
+               "left"
+             else
+      "go_past"
+             end
     [choice, 'Forest']
   end
 
@@ -248,11 +249,11 @@ class Forest
     ]
     options = ['Go back the way you came (Recommended by Stor)', 'Carry on']
     response = Gui.gui_message_intake(message, options)
-    if response == "Go back the way you came (recommended by stor)"
-      choice = "left"
-    else
-      choice = "go_past"
-    end
+    choice = if response == "Go back the way you came (recommended by stor)"
+               "left"
+             else
+      "go_past"
+             end
     [choice, 'Forest']
   end
 
