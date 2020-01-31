@@ -67,7 +67,7 @@ class Forest
         "'You look wantonly at the cottage, but your deep-rooted sense of mistrust makes you decide that you can't risk a strangers charity, so you continue on",
         'With each step the forest gets thicker and thicker, until the branches of the towering trees almost completely block out the sun',
         'You start moving a lot slower, stumbling over upturned roots and stray branches',
-        'You turn back the way you came, but to your horror find yourself staring at an infinity path, nothing like where you have come from'
+        'You turn back the way you came, but to your horror find yourself staring at an infinite path, nothing like where you have come from'
     ]
     Gui.gui_message_intake(message)
     # return "next_level", "deep_forest"
